@@ -121,7 +121,7 @@ export default function WaitlistPage() {
             <div className="logo-scale">
               <div className="logo-badge">
               <Image
-                src="/logo_button.webp"
+                src="/logo_button.svg"
                 alt="Clariparse Logo Png"
                 width={30}
                 height={30}
