@@ -7,11 +7,68 @@ import SpotlightCard from '@/components/SpotlightCard'
 
 export default function WaitlistPage() {
   const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<{ type: 'idle' | 'success' | 'error'; message?: string }>({
+    type: 'idle',
+  })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // No backend functionality for now
-    console.log('Email submitted:', email)
+    void (async () => {
+      setIsSubmitting(true)
+      setStatus({ type: 'idle' })
+      try {
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+        const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+        if (!url || !key) {
+          setStatus({
+            type: 'error',
+            message: 'Missing Supabase env vars (NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY).',
+          })
+          return
+        }
+
+        const res = await fetch(`${url}/functions/v1/waitlist-submit`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: key,
+          },
+          body: JSON.stringify({
+            email,
+            hp: '',
+          }),
+        })
+
+        if (res.ok) {
+          setStatus({ type: 'success', message: "You're on the waitlist." })
+          setEmail('')
+          return
+        }
+
+        const body = await res.json().catch(() => null)
+        const err = body?.error ?? 'unknown_error'
+        if (err === 'invalid_email') {
+          setStatus({ type: 'error', message: 'Please enter a valid email address.' })
+          return
+        }
+        if (err === 'rate_limited') {
+          setStatus({ type: 'error', message: 'Too many attempts. Please try again in a bit.' })
+          return
+        }
+        if (err === 'unauthorized') {
+          setStatus({ type: 'error', message: 'Server auth misconfigured. Please try again later.' })
+          return
+        }
+        if (err === 'server_misconfigured') {
+          setStatus({ type: 'error', message: 'Server is not configured yet. Please try again later.' })
+          return
+        }
+        setStatus({ type: 'error', message: 'Something went wrong. Please try again.' })
+      } finally {
+        setIsSubmitting(false)
+      }
+    })()
   }
 
   return (
@@ -104,14 +161,26 @@ export default function WaitlistPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="relative z-10 w-full h-12 pl-4 pr-[150px] rounded-xl bg-transparent text-foreground placeholder:text-foreground/45 focus:outline-none focus:ring-1 focus:ring-ring"
+                disabled={isSubmitting}
               />
               <button
                 type="submit"
-                className="absolute inset-y-1.5 right-1.5 z-10 tracking-wide px-5 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-sm transition-all duration-200 ease-out hover:shadow-md hover:brightness-[1.03] active:brightness-[0.99] btn-shine whitespace-nowrap"
+                disabled={isSubmitting}
+                className="absolute inset-y-1.5 right-1.5 z-10 tracking-wide px-5 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-sm transition-all duration-200 ease-out hover:shadow-md hover:brightness-[1.03] active:brightness-[0.99] btn-shine whitespace-nowrap disabled:opacity-60 disabled:pointer-events-none"
               >
-                Join Waitlist
+                {isSubmitting ? 'Joining…' : 'Join Waitlist'}
               </button>
             </div>
+
+            {status.type !== 'idle' && (
+              <div className="mt-3 text-center">
+                {status.type === 'success' ? (
+                  <p className="text-sm text-foreground/80">{status.message}</p>
+                ) : (
+                  <p className="text-sm text-destructive">{status.message}</p>
+                )}
+              </div>
+            )}
           </div>
         </form>
         </div>
