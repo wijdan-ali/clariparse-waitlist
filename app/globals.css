@@ -1,0 +1,373 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.9761 0.0041 91.4461;
+    --foreground: 0.2417 0.0298 269.8827;
+    --card: 1.0000 0 0;
+    --card-foreground: 0.2417 0.0298 269.8827;
+    --popover: 1.0000 0 0;
+    --popover-foreground: 0.2417 0.0298 269.8827;
+    --primary: 0.6333 0.0309 154.9039;
+    --primary-foreground: 1.0000 0 0;
+    --secondary: 0.8596 0.0291 119.9919;
+    --secondary-foreground: 0.2417 0.0298 269.8827;
+    --muted: 0.9251 0.0071 88.6450;
+    --muted-foreground: 0.5510 0.0234 264.3637;
+    --accent: 0.8242 0.0221 136.6092;
+    --accent-foreground: 0.2417 0.0298 269.8827;
+    --destructive: 0.5624 0.1743 26.1433;
+    --destructive-foreground: 1.0000 0 0;
+    --border: 0.9251 0.0071 88.6450;
+    --input: 1.0000 0 0;
+    --ring: 0.6333 0.0309 154.9039;
+    --radius: 0.35rem;
+    --shadow-color: #1a1f2e;
+    --shadow-opacity: 0.04;
+    --shadow-blur: 2px;
+    --shadow-spread: 0px;
+    --shadow-offset-x: 0px;
+    --shadow-offset-y: 1px;
+    --shadow-2xs: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.02);
+    --shadow-xs: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.02);
+    --shadow-sm: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.04), 0px 1px 2px -1px hsl(225 27.7778% 14.1176% / 0.04);
+    --shadow: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.04), 0px 1px 2px -1px hsl(225 27.7778% 14.1176% / 0.04);
+    --shadow-md: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.04), 0px 2px 4px -1px hsl(225 27.7778% 14.1176% / 0.04);
+    --shadow-lg: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.04), 0px 4px 6px -1px hsl(225 27.7778% 14.1176% / 0.04);
+    --shadow-xl: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.04), 0px 8px 10px -1px hsl(225 27.7778% 14.1176% / 0.04);
+    --shadow-2xl: 0px 1px 2px 0px hsl(225 27.7778% 14.1176% / 0.10);
+
+    --font-sans: var(--font-antic), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: var(--font-antic);
+  }
+
+  * {
+    border-color: oklch(var(--border));
+  }
+
+  body {
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: var(--font-sans);
+  }
+}
+
+/* Notion-like scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(55, 53, 47, 0.16);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(55, 53, 47, 0.24);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Logo hover bounce animation */
+@keyframes logo-rotate-bounce {
+  0% {
+    transform: rotate(-5deg);
+  }
+  22% {
+    transform: rotate(6deg);
+  }
+  42% {
+    transform: rotate(8deg);
+  }
+  58% {
+    transform: rotate(0deg);
+  }
+  68% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Hover target */
+.logo-group {
+  display: inline-flex;
+}
+
+/* Outer wrapper: scale ONLY (smoothly) */
+.logo-scale {
+  transform: scale(1);
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Satin / inner-shadow square behind the logo (matches the reference) */
+.logo-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* “satin” surface */
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(224, 224, 224, 0.92));
+
+  /* soft edge + inner shadows */
+  box-shadow:
+    /* inner highlight ring */
+    /* inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 -1px 0 rgba(10, 25, 18, 0.06),
+    inset 1px 0 0 rgba(10, 25, 18, 0.05),
+    inset -1px 0 0 rgba(10, 25, 18, 0.05), */
+    /* stronger, smooth inset vignette from all sides */
+    inset 0 3px 6px rgba(35, 35, 35, 0.05),
+    inset 0 -3px 6px rgba(35, 35, 35, 0.05),
+    inset 3px 0 6px rgba(35, 35, 35, 0.05),
+    inset -3px 0 6px rgba(35, 35, 35, 0.05),
+    /* subtle overall depth */
+    0 6px 15px rgba(10, 25, 18, 0.02);
+
+  /* subtle border to define the square on light cards */
+  border: 1px solid rgba(10, 25, 18, 0.06);
+
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Satin sheen overlay (very subtle) */
+.logo-badge::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0.18) 55%,
+    transparent 70%
+  );
+  opacity: 0.28;
+  transform: translateX(-12%) translateY(-10%);
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+/* Logo image sizing inside the badge */
+.logo-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+}
+
+/* Hover behavior: scale the whole unit (badge + logo) */
+.logo-group:hover .logo-scale {
+  transform: scale(1.08);
+}
+
+/* Rotation “bounce” applies to the combined unit (badge + logo) */
+.logo-group:hover .logo-badge {
+  animation: logo-rotate-bounce 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card background mountain */
+@keyframes mountain-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.mountain-float {
+  animation: mountain-float 7.0s ease-in-out infinite;
+  animation-delay: var(--mountain-float-delay, 0s);
+}
+
+.mountain-art {
+  opacity: var(--mountain-opacity, 0.16);
+  filter: blur(0px);
+  /* keep it subtle */
+}
+
+/* Glass input shell (prevents "late" blur kick-in and exposes controls via CSS vars) */
+.glass-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, var(--glass-alpha, 0.06));
+  border: 1px solid rgba(0, 0, 0, var(--glass-border-alpha, 0.12));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(var(--glass-blur, 18px)) saturate(1.15);
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px)) saturate(1.15);
+  transition:
+    background 260ms ease-out,
+    border-color 260ms ease-out;
+  will-change: backdrop-filter, background-color;
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+.glass-shell:hover::before {
+  background: rgba(255, 255, 255, var(--glass-alpha-hover, 0.1));
+  border-color: rgba(0, 0, 0, var(--glass-border-alpha-hover, 0.18));
+  backdrop-filter: blur(var(--glass-blur-hover, var(--glass-blur, 18px))) saturate(1.15);
+  -webkit-backdrop-filter: blur(var(--glass-blur-hover, var(--glass-blur, 18px))) saturate(1.15);
+}
+
+.glass-shell:focus-within::before {
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+/* Page load in-animations (staggered) */
+@keyframes page-in-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.982);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes page-in-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Transform-only rise: avoids delayed backdrop-filter composition */
+@keyframes page-in-rise-t {
+  0% {
+    transform: translateY(18px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.page-in-card {
+  opacity: 1;
+  animation: page-in-pop 900ms cubic-bezier(0.16, 1, 0.3, 1) 0ms backwards;
+}
+
+.page-in-logo {
+  opacity: 1;
+  animation: page-in-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 520ms backwards;
+}
+
+.page-in-heading {
+  opacity: 1;
+  animation: page-in-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 760ms backwards;
+}
+
+.page-in-input {
+  opacity: 1;
+  will-change: transform;
+  animation: page-in-rise-t 900ms cubic-bezier(0.16, 1, 0.3, 1) 1020ms backwards;
+}
+
+/* Mountains last: fade-in only (no transform to avoid fighting float translateY) */
+@keyframes page-in-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.page-in-mountain {
+  opacity: 1;
+  animation: page-in-fade 1200ms cubic-bezier(0.16, 1, 0.3, 1) 1500ms backwards;
+}
+
+
+/* Button: subtle shine sweep overlay on hover */
+@keyframes btn-shine-sweep {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateX(140%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.btn-shine {
+  overflow: hidden;
+}
+
+.btn-shine::before {
+  content: '';
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.65) 50%, transparent 65%);
+  transform: translateX(-140%) skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-shine:hover::before {
+  animation: btn-shine-sweep 3000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-scale,
+  .logo-badge,
+  .logo-img {
+    transition: none;
+    animation: none;
+  }
+  .mountain-float {
+    animation: none;
+  }
+  .page-in-card,
+  .page-in-logo,
+  .page-in-heading,
+  .page-in-input,
+  .page-in-mountain {
+    opacity: 1;
+    animation: none;
+  }
+  .btn-shine::before {
+    animation: none;
+  }
+}

@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/cryzez/Documents/PDF-Tables/clariparse-waitlist/app/layout\":[\"static/media/e5c63ac3cfea3041-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
