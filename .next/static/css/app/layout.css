@@ -524,7 +524,7 @@ video {
     --card: 1.0000 0 0;
     --card-foreground: 0.2417 0.0298 269.8827;
     --popover: 1.0000 0 0;
-    --popover-foreground: 0.2417 0.0298 269.8827;
+    --popover-foreground: 0.2417 0.0298 269.8827; 
     --primary: 0.6333 0.0309 154.9039;
     --primary-foreground: 1.0000 0 0;
     --secondary: 0.8596 0.0291 119.9919;
@@ -724,16 +724,16 @@ video {
   --tw-border-opacity: 1;
   border-color: oklch(var(--border) / var(--tw-border-opacity, 1));
 }
-.bg-background {
-  --tw-bg-opacity: 1;
-  background-color: oklch(var(--background) / var(--tw-bg-opacity, 1));
-}
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: oklch(var(--primary) / var(--tw-bg-opacity, 1));
 }
 .bg-transparent {
   background-color: transparent;
+}
+.bg-zinc-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(228 228 231 / var(--tw-bg-opacity, 1));
 }
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));

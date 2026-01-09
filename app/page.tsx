@@ -94,24 +94,28 @@ export default function WaitlistPage() {
       </div>
 
       <SpotlightCard
-        className="w-full max-w-2xl rounded-[50px] border border-border bg-background p-20 min-h-[360px] shadow-lg transition-transform duration-700 ease-out hover:scale-[1.02] relative z-10 overflow-hidden page-in-card"
-        spotlightColor="rgba(181, 181, 181, 0.2)"
+        className="w-full max-w-2xl rounded-[50px] border border-border bg-zinc-200 p-20 min-h-[360px] shadow-lg transition-transform duration-700 ease-out hover:scale-[1.02] relative z-10 overflow-hidden page-in-card"
+        spotlightColor="rgba(255, 255, 255, 1.0)"
       >
         {/* Card background art (bottom-left) */}
         <div
-          className="pointer-events-none absolute bottom-[-10px] left-[-70px] z-0 mountain-float page-in-mountain"
-          style={{
-            ['--mountain-opacity' as any]: 0.16,
-            ['--mountain-float-delay' as any]: '1.8s',
-          }}
+          className="pointer-events-none absolute bottom-[-10px] left-[-70px] z-0 page-in-mountain"
         >
-          <Image
-            src="/assets_mountain.webp"
-            alt=""
-            width={460}
-            height={560}
-            className="mountain-art"
-          />
+          <div
+            className="mountain-float"
+            style={{
+              ['--mountain-opacity' as any]: 0.30,
+              ['--mountain-float-delay' as any]: '1.8s',
+            }}
+          >
+            <Image
+              src="/assets_mountain.webp"
+              alt=""
+              width={460}
+              height={560}
+              className="mountain-art"
+            />
+          </div>
         </div>
 
         <div className="relative z-10">
