@@ -41,7 +41,7 @@ export default function WaitlistPage() {
         })
 
         if (res.ok) {
-          setStatus({ type: 'success', message: "You're on the waitlist." })
+          setStatus({ type: 'success', message: "Officially in the waiting list. You just saved your future self a lot of time." })
           setEmail('')
           return
         }
@@ -57,11 +57,15 @@ export default function WaitlistPage() {
           return
         }
         if (err === 'unauthorized') {
-          setStatus({ type: 'error', message: 'Server auth misconfigured. Please try again later.' })
+          setStatus({ type: 'error', message: 'Something went wrong. Please try again.' })
           return
         }
         if (err === 'server_misconfigured') {
-          setStatus({ type: 'error', message: 'Server is not configured yet. Please try again later.' })
+          setStatus({ type: 'error', message: 'Something went wrong. Please try again.' })
+          return
+        }
+        if (err === 'db_error') {
+          setStatus({ type: 'error', message: `Error: User is too excited. (You're already signed up).` })
           return
         }
         setStatus({ type: 'error', message: 'Something went wrong. Please try again.' })
@@ -176,15 +180,18 @@ export default function WaitlistPage() {
               </button>
             </div>
 
-            {status.type !== 'idle' && (
-              <div className="mt-3 text-center">
-                {status.type === 'success' ? (
-                  <p className="text-sm text-foreground/80">{status.message}</p>
-                ) : (
-                  <p className="text-sm text-destructive">{status.message}</p>
-                )}
-              </div>
-            )}
+            {/* Reserve space so layout doesn't jump; fade message in/out */}
+            <div className="mt-3 min-h-[20px] text-center" aria-live="polite">
+              <p
+                className={[
+                  'text-base transition-all duration-700 ease-out',
+                  status.type === 'idle' ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0',
+                  status.type === 'error' ? 'text-destructive' : 'text-foreground/80',
+                ].join(' ')}
+              >
+                {status.message ?? '\u00A0'}
+              </p>
+            </div>
           </div>
         </form>
         </div>
