@@ -94,7 +94,7 @@ export default function WaitlistPage() {
       </div>
 
       <SpotlightCard
-        className="w-full max-w-2xl rounded-[50px] border border-border bg-zinc-200 p-20 min-h-[360px] shadow-lg transition-transform duration-700 ease-out hover:scale-[1.02] relative z-10 overflow-hidden page-in-card"
+        className="w-full max-w-2xl rounded-[50px] border border-border bg-zinc-100 p-20 min-h-[360px] shadow-lg transition-transform duration-700 ease-out hover:scale-[1.02] relative z-10 overflow-hidden page-in-card"
         spotlightColor="rgba(255, 255, 255, 1.0)"
       >
         {/* Card background art (bottom-left) */}
