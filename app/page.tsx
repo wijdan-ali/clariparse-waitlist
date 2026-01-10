@@ -144,7 +144,7 @@ export default function WaitlistPage() {
 
         {/* Headline */}
         <div className="page-in-heading">
-          <h1 className="text-[35px] font-bold text-center mb-12 font-serif tracking-tight bg-gradient-to-b from-black/90 to-gray-500/70 bg-clip-text text-transparent transition-transform duration-500 ease-out hover:scale-[1.01]">
+          <h1 className="text-[28px] sm:text-[35px] font-bold text-center mb-8 sm:mb-12 font-serif tracking-tight bg-gradient-to-b from-black/90 to-gray-500/70 bg-clip-text text-transparent transition-transform duration-500 ease-out hover:scale-[1.01]">
             Turn Clutter Into Clarity
           </h1>
         </div>
@@ -168,23 +168,34 @@ export default function WaitlistPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="relative z-10 w-full h-12 pl-4 pr-[150px] rounded-xl bg-transparent text-foreground placeholder:text-foreground/45 focus:outline-none focus:ring-1 focus:ring-ring"
+                className="relative z-10 w-full h-12 pl-4 pr-4 sm:pr-[150px] rounded-xl bg-transparent text-foreground placeholder:text-foreground/45 focus:outline-none focus:ring-1 focus:ring-ring"
                 disabled={isSubmitting}
               />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="absolute inset-y-1.5 right-1.5 z-10 tracking-wide px-5 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-sm transition-all duration-200 ease-out hover:shadow-md hover:brightness-[1.03] active:brightness-[0.99] btn-shine whitespace-nowrap disabled:opacity-60 disabled:pointer-events-none"
+                className="hidden sm:absolute sm:inset-y-1.5 sm:right-1.5 sm:inline-flex items-center justify-center leading-none z-10 tracking-wide px-5 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-sm transition-all duration-200 ease-out hover:shadow-md hover:brightness-[1.03] active:brightness-[0.99] btn-shine whitespace-nowrap disabled:opacity-60 disabled:pointer-events-none"
+              >
+                {isSubmitting ? 'Joining…' : 'Join Waitlist'}
+              </button>
+            </div>
+
+            {/* Mobile button (separate from input shell) */}
+            <div className="mt-3 flex justify-center sm:hidden">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="inline-flex h-12 items-center justify-center leading-none tracking-wide px-6 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-sm transition-all duration-200 ease-out hover:shadow-md hover:brightness-[1.03] active:brightness-[0.99] btn-shine whitespace-nowrap disabled:opacity-60 disabled:pointer-events-none"
               >
                 {isSubmitting ? 'Joining…' : 'Join Waitlist'}
               </button>
             </div>
 
             {/* Reserve space so layout doesn't jump; fade message in/out */}
-            <div className="mt-3 min-h-[20px] text-center" aria-live="polite">
+            <div className="mt-2 sm:mt-3 min-h-[56px] sm:min-h-[20px] text-center" aria-live="polite">
               <p
                 className={[
-                  'text-base transition-all duration-700 ease-out',
+                  'text-sm sm:text-base leading-snug transition-all duration-700 ease-out',
                   status.type === 'idle' ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0',
                   status.type === 'error' ? 'text-destructive' : 'text-foreground/80',
                 ].join(' ')}

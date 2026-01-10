@@ -3,8 +3,23 @@ import { antic } from './fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Clariparse - Join the Waitlist',
-  description: 'Join the waitlist for Clariparse',
+  metadataBase: new URL('https://clariparse.com'),
+  title: 'Clariparse | Join The Waitlist',
+  description:
+    'Stop manual data entry. Drop a folder of mixed PDFs (invoices, POs, forms) and get a single, standardized spreadsheet instantly. Join the early access list.',
+  keywords: ['pdf to excel', 'batch pdf extraction', 'ai invoice processing', 'automated data entry', 'document parsing', 'ocr software'],
+  openGraph: {
+    type: 'website',
+    url: 'https://clariparse.com/',
+    title: 'Clariparse: Turn messy PDFs into clean spreadsheets.',
+    description:
+      "Don't just extract text. Extract rows. Define your columns, upload mixed layouts, and get a standardized database in seconds.",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The end of manual data logging',
+    description: "I'm building an AI tool that turns a folder of mixed PDFs into a single Spread Sheet. Join the Waiting List",
+  },
   icons: {
     icon: [
       { url: '/favicons.ico/favicon.ico' },
@@ -30,6 +45,8 @@ export const metadata: Metadata = {
   other: {
     'msapplication-TileColor': '#ffffff',
     'msapplication-TileImage': '/favicons.ico/ms-icon-144x144.png',
+    title: 'Clariparse | Extract Data From Documents To Clean Spreadsheets With AI',
+    'twitter:url': 'https://clariparse.com/',
   },
 }
 
